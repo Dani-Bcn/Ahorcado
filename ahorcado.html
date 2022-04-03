@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado</title>
+</head>
+<body>
+    <h1 style="text-align: center">Juego del ahorcado</h1>
+    <h3>Palabra propuesta</h3>
+  
+    <h2 id="rayas"></h2>
+    <h3>Escoge una letra</h3>  
+    <h4 id="oportunidades"></h4>
+    <input maxlength="1" id="letra"><br><br>
+    <h3 id="fallo"></h3>
+    <button  id="bucar" onclick="buscar()">Buscar</button>
+    <script> 
+         
+        var arrayFinal=[];
+        var falloLetras=[];
+        var d=6;
+        var ganar=false; 
+        var azaar=parseInt(Math.random()*22);
+            var arraypalabras=["CALABAZA","TELEVISION","ASCENSOR","MARGARITA","TRANQUIMACIL","CATASTROFE","ACUADUPTO","HERRAMIENTA","PLANTACION","HIPOTERMIA","ESQUIZOFRENIA","PIRAGUISMO","ENVESTIDURA","GALIMATIAS","EXPLICITO","BIENVENIDO","EXCURSIONISTA","IMPERATIVO","INCONSISTENTE","ESTRUCTURADO","INTARNSIGENTE"]         
+        
+       
+        function buscar(){
+          
+                  
+        console.log(azaar);   
+         var palabra=arraypalabras[azaar];
+            var rayitas=palabra.replace(/./gi,"_ "); 
+            var arrayrayitas=Array.from(rayitas);
+            var letra=document.getElementById("letra").value;  
+                 letra=letra.toUpperCase();
+            var contador=false;
+            document.getElementById("rayas").innerHTML=rayitas;
+            for (x in palabra){    
+                    if(letra==palabra.charAt(x)){ 
+                            arrayFinal[x]=letra;    
+                            contador = true;                 
+                    }
+                    if(arrayFinal[x]==undefined){
+                            arrayFinal[x]="_ "
+                    }              
+                    document.getElementById("rayas").innerHTML=arrayFinal.toString().replace(/,/gi,"");
+            } 
+            if (arrayFinal.toString().replace(/,/gi,"")==palabra) {
+                    palabra=""
+                        
+                    alert("Has ganado, Felicidades!!!")   
+                    javascript:location.reload()             
+            }
+            if (contador!=true){
+                d--;  
+                falloLetras.push(letra)           
+                document.getElementById("fallo").innerHTML="La letra  " + letra + " no se encuentra, Te quedan : " + d + " oprtunidades"+"<br>" +"Letras no encontaradas : "+ falloLetras ;
+            }          
+            if(d<=0){alert("Se acabó el juego, perdiste !!!"); javascript:location.reload()}
+            
+        }       
+
+    </script>    
+
+</body>
+</html>
